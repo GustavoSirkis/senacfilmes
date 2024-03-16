@@ -10,6 +10,8 @@ export default function CardFilme( { filme } ){
     
     const [favorito, setFavorito] = useState(false);
 
+    const poster = "https://www.themoviedb.org/t/p/w220_and_h330_face/" + filme.poster_path;
+
     function favoritar(){
         setFavorito(true);
         const favoritos= JSON.parse(localStorage.getItem("favoritos")) || [];
@@ -32,14 +34,14 @@ export default function CardFilme( { filme } ){
                     <FavoriteBorderIcon className='absolute right-2 top-2 text-amber-500 cursor-pointer' onClick={favoritar} />
             }
 
-            <img className="rounded" src={filme.poster} alt="poster" />
-            <span className="text-zinc-400 font-medium text-center line-clamp-1">{filme.titulo}</span>
+            <img className="rounded" src={poster} alt="poster" />
+            <span className="text-zinc-400 font-medium text-center line-clamp-1">{filme.title}</span>
             
             <div className="flex">
                 <span >
                     <StarIcon className="h-6 w-6 text-amber-500" />
                 </span>
-                <span className="text-zinc-400">{filme.nota}</span>
+                <span className="text-zinc-400">{filme.vote_average.toFixed(1)}</span>
             </div>
             <a href="#" className="bg-cyan-600 w-full text-center rounded m-1 py-1">Detalhes</a>
         </div>

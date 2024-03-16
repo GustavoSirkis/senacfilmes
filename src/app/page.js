@@ -1,18 +1,28 @@
+'use client';
+
+import {useEffect, useState} from "react";
+
 import CardFilme from "@/components/CardFilme";
 import Titulo from "@/components/Titulo";
+import Registrar from "./register";
 
 export default function Home() {
- 
-  const titanic = {
-    poster: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg",
-    titulo: "Titanic",
-    nota: 8.9
-  }
-  const corra = {
-    poster: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/7hmmKIWDHi7jzOiGzffZesXKKfp.jpg",
-    titulo: "Corra",
-    nota: 7.9
-  }
+
+  const [filmesEmAlta, setFilmesEmAlta] = useState([]);
+
+  
+  useEffect(() => {
+    const options = {
+      headers: {
+        "Authorization": 'Bearer' + process.env.API_KEY,        
+      }
+    }
+
+    fetch('https://api.themoviedb.org/3/trending/movie/week?language=pt-BR', options)
+      .then(resp => resp.json())
+      .then(resp => setFilmesEmAlta(resp.results))
+      .catch(err => console.log(err))
+  }, [])
 
   return (
     <>
@@ -32,11 +42,9 @@ export default function Home() {
       </nav>
 
       <Titulo>Filmes em Alta</Titulo>
-      <section className="flex gap-2 flex-wrap">
 
-        <CardFilme filme={titanic} />
-        <CardFilme filme={corra} />
-      
+      <section className="flex gap-2 flex-wrap">
+        { filmesEmAlta.map(filme => <CardFilme key={filme.id} filme={filme} />) }   
       </section>
 
       <Titulo>Séries em Alta</Titulo>
