@@ -1,6 +1,7 @@
 'use client';
 
 import {useEffect, useState} from "react";
+import fetch from "node-fetch";
 
 import CardFilme from "@/components/CardFilme";
 import Titulo from "@/components/Titulo";
@@ -9,19 +10,25 @@ import Registrar from "./register";
 export default function Home() {
 
   const [filmesEmAlta, setFilmesEmAlta] = useState([]);
-
   
-  useEffect(() => {
-    const options = {
-      headers: {
-        "Authorization": 'Bearer' + process.env.API_KEY,        
-      }
-    }
+  const fetch = require('node-fetch');
 
-    fetch('https://api.themoviedb.org/3/trending/movie/week?language=pt-BR', options)
-      .then(resp => resp.json())
-      .then(resp => setFilmesEmAlta(resp.results))
-      .catch(err => console.log(err))
+    
+  useEffect(() => {   
+    const url = 'https://api.themoviedb.org/3/trending/movie/day?language=en-US';
+    const options = {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwYzEzNTg2M2ZjMzE3MGQ1YjYxNWUwZGU5YTYzMzM2ZiIsInN1YiI6IjY1ZjVhZTI2YWVkZTU5MDE2M2JlYzA4ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.K4wVawxPF8TqtuAe0mIgG7RAc--d1n630Ty-NbP4avo'
+      }
+    };
+
+    fetch(url, options)
+      .then(res => res.json())
+      .then(res => setFilmesEmAlta(res.results))
+      .catch(err => console.error('error:' + err));
+    
   }, [])
 
   return (
@@ -43,8 +50,11 @@ export default function Home() {
 
       <Titulo>Filmes em Alta</Titulo>
 
-      <section className="flex gap-2 flex-wrap">
-        { filmesEmAlta.map(filme => <CardFilme key={filme.id} filme={filme} />) }   
+      <section className="flex gap-2 flex-wrap">       
+       {console.log(filmesEmAlta)}
+        
+       { filmesEmAlta.map(filme => <CardFilme key={filme.id} filme={filme} />) }   
+      
       </section>
 
       <Titulo>Séries em Alta</Titulo>
