@@ -1,4 +1,10 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+TThis is a project of a movie streming application in the Systems Analysis and Development course at SENAC Faculty, where version 3.0 of [The Movie Database API (TMDB)](https://www.themoviedb.org/) is used to generate the list of movies.
+
+This is also a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+## Project Preview
+
+[SENACFILMES](https://gustavosirkis.github.io/senacfilmes/)
 
 ## Getting Started
 
